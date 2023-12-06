@@ -1,7 +1,7 @@
 // src/app.d.ts
 
 
-// supabase gen types typescript --project-id upjyzuewrrwmgzzxmsth > ./src/lib/utils/database.types.ts
+// supabase gen types typescript --project-id lzwzuonzdnqgacynnsry > ./src/lib/utils/database.types.ts
 
 import { SupabaseClient, Session } from '@supabase/supabase-js'
 import type { Database } from '$lib/utils/database.types.js'
