@@ -10,6 +10,7 @@ A saas template for Sveltekit + Supabase + Stripe. It includes Auth, payment(sub
 1. Setup database like so:
 <details>
   <summary>SQL code</summary>
+  
     ```sql
     -- profiles table
     create table
