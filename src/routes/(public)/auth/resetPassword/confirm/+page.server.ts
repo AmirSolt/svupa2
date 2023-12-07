@@ -21,7 +21,7 @@ export const actions = {
 		}
 
         const { data: tokenData, error: tokenError } = await event.locals.supabaseAuthServer.auth.verifyOtp({
-            tokenHash: form.data.tokenHash, type: 'email'
+            token_hash: form.data.tokenHash, type: 'email'
 		})
         
 		if (tokenError != null) {

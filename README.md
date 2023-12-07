@@ -74,8 +74,7 @@ A saas template for Sveltekit + Supabase + Stripe. It includes Auth, payment(sub
 
 ### Third party
 1. Setup an email smtp. Supabase setup in settings > authentication.
-2. Turnstile by Cloudflare. Supabase setup in settings > authentication.
-
+2. Turnstile by Cloudflare. Supabase setup in settings > authentication. -> https://github.com/ghostdevv/svelte-turnstile
 
 ---
 
