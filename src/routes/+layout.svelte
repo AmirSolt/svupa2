@@ -2,10 +2,14 @@
 	import '../app.postcss';
 	import {User, Menu} from 'lucide-svelte'
 	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
-	import { Toast, initializeStores } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, initializeStores } from '@skeletonlabs/skeleton';
 	initializeStores();
 
-	import { invalidate } from '$app/navigation';
+	// nav menu dropdown
+	import { slide } from 'svelte/transition'
+	let isExpanded = false
+
+	import { goto, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	export let data;
 	let { supabaseAuthClient, session } = data;
@@ -21,6 +25,8 @@
 		});
 		return () => subscription.unsubscribe();
 	});
+
+	
 	
 
 	// Highlight JS
@@ -38,6 +44,7 @@
 </script>
 
 <Toast position="t" />
+<Modal />
 
 <AppShell>
 	<svelte:fragment  slot="header">
@@ -50,23 +57,29 @@
 			</svelte:fragment>
 			
 			<svelte:fragment  slot="trail" >
-				<div>
-					<div class="md:hidden">
-						<button class="btn-icon variant-filled">
-							<Menu/>
-						</button>
-					</div>
-					<div class="hidden md:flex-none md:flex md:items-center md:space-x-2">
-						<a class="btn btn-sm md:btn-md variant-ringed" href="/payment/pricing">
-							Pricing 
-						</a>
-						{#if session?.user}
-							<a class="btn-icon variant-ringed" href="/profile/dashboard"> <User/> </a>
-						{:else}
-							<a class="btn btn-sm md:btn-md variant-filled" href="/auth/signin"> Log in </a>
-							<a class="btn btn-sm md:btn-md variant-filled-primary" href="/auth/signup"> Sign up </a>
-						{/if}
-					</div>
+				<div class="flex justify-center items-center gap-2">
+					<a class="btn btn-sm md:btn-md variant-ringed" href="/payment/pricing">
+						Pricing 
+					</a>
+
+
+					{#if session?.user}
+							<nav class="relative inline-block">
+								<button class="btn btn-icon variant-filled" on:click={()=>{isExpanded = !isExpanded}}><Menu/></button>
+								{#if isExpanded}
+									<ul class="absolute z-10 card p-2 end-0 start-auto" transition:slide>
+										<a href="/profile/dashboard">Dashboard</a>
+										<a href="/profile/page1">Page 1</a>
+										<a href="/profile/page2">Page 2</a>
+										<a href="/profile/settings">Settings</a>
+									</ul>
+								{/if}
+							</nav>
+					{:else}
+						<a class="btn btn-sm md:btn-md variant-filled" href="/auth/signin"> Log in </a>
+						<a class="btn btn-sm md:btn-md variant-filled-primary" href="/auth/signup"> Sign up </a>
+					{/if}
+
 				</div>
 			</svelte:fragment>
 		</AppBar>
