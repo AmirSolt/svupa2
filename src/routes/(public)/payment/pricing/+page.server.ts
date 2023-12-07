@@ -2,10 +2,10 @@ import { error, redirect, fail } from "@sveltejs/kit";
 import {PUBLIC_DOMAIN} from '$env/static/public';
 import { superValidate } from 'sveltekit-superforms/server'
 import { pricingSchema } from '$lib/utils/schema'
-import {updateWalletCustomerId} from '$lib/funcs/server/database/index.js'
-import {stripe, getProducts, createStripeCustomer} from '$lib/utils/stripeHelper.server.js'
+import {updateWalletCustomerId} from '$lib/funcs/database.server.js'
+import {stripe, getProducts, createStripeCustomer} from '$lib/funcs/payment.server.js'
 import type {Stripe} from 'stripe';
-import { fetchProfile } from '$lib/funcs/server/database/index.js'
+import { fetchProfile } from '$lib/funcs/database.server.js'
 
 
 export const load = async (event) => {

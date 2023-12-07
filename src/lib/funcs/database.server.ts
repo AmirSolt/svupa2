@@ -4,11 +4,11 @@ import { error } from '@sveltejs/kit'
 import { PUBLIC_SUPABASE_URL } from '$env/static/public'
 import { PRIVATE_SERVICE_ROLE_KEY_SUPABASE } from '$env/static/private'
 import { createClient, type Session } from '@supabase/supabase-js'
-
+import type { Database } from '$lib/utils/database.types'
 
 
 // Create a single supabase client for interacting with your database
-export const supabaseAdmin = createClient(
+export const supabaseAdmin = createClient<Database>(
     PUBLIC_SUPABASE_URL,
     PRIVATE_SERVICE_ROLE_KEY_SUPABASE,
     {
@@ -17,34 +17,24 @@ export const supabaseAdmin = createClient(
 )
 
 
-export async function fetchProfile(session:Session|null):Promise<Profile|null>{
-    let profile:Profile
+export async function fetchProfile(session:Session|null){
     if (session) {
-        const { data, error: err } = await supabaseAdmin
+        const profileWithWallet = supabaseAdmin
             .from('profiles')
             .select(`
-                first_name,
-                last_name,
+                full_name,
                 wallet(customer_id, subscription_id)
             `)
             .eq('id', session?.user.id)
             .single()
+
+        const { data, error: err } = await profileWithWallet
         if (err != null) {
-            
             throw error(400, {
                 message: err.message,
             })
-        }else{
-            const first_name:string|null=data["first_name"]
-            const last_name:string|null=data["last_name"]
-            const wallet:Wallet=data["wallet"]
-            profile = {
-                first_name,
-                last_name,
-                wallet,
-            }
         }
-        return profile
+        return data
     }
     return null
 }

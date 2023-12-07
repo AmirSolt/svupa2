@@ -32,6 +32,7 @@
     "postcss": "8.4.32",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.10.1",
+    "supabase": "^1.115.5",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
     "sveltekit-superforms": "^1.7.2",

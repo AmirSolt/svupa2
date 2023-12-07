@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ProductCard from '$lib/comps/payment/ProductCard.svelte';
+    import ProductCard from './ProductCard.svelte';
     import type {Stripe} from 'stripe';
     export let products:Stripe.Product[]
 

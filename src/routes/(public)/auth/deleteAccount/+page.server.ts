@@ -1,8 +1,8 @@
 import { deleteUserSchema } from '$lib/utils/schema'
 import { error, fail, redirect } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms/server'
-import {stripe} from '$lib/utils/stripeHelper.server.js'
-import { fetchProfile } from '$lib/funcs/server/database/index.js'
+import {stripe} from '$lib/funcs/payment.server.js'
+import { fetchProfile } from '$lib/funcs/database.server.js'
 import type { Session } from "@supabase/supabase-js";
 
 

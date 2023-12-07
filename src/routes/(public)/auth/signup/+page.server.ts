@@ -1,7 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit'
 import { superValidate, setError } from 'sveltekit-superforms/server'
 import { signupSchema } from '$lib/utils/schema'
-import {createStripeCustomer} from '$lib/utils/stripeHelper.server.js'
+import {createStripeCustomer} from '$lib/funcs/payment.server.js'
 
 
 export const load = async (event) => {

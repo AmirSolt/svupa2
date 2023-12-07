@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
-import {stripe} from '$lib/utils/stripeHelper.server.js'
-import { fetchProfile } from '$lib/funcs/server/database/index.js'
+import {stripe} from '$lib/funcs/payment.server.js'
+import { fetchProfile } from '$lib/funcs/database.server.js'
 import {PUBLIC_DOMAIN} from '$env/static/public';
     
 

@@ -1,7 +1,7 @@
 import { superValidate } from 'sveltekit-superforms/server'
 import { nameSchema } from '$lib/utils/schema'
 import { fail, error } from '@sveltejs/kit';
-import { updateName } from '$lib/funcs/server/database/index.js';
+import { updateName } from '$lib/funcs/database.server.js';
 
     
 export async function load(event) {

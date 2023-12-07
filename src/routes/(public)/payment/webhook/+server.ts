@@ -1,7 +1,7 @@
 import type { Stripe } from 'stripe'
-import { stripe } from '$lib/utils/stripeHelper.server.js'
+import { stripe } from '$lib/funcs/payment.server.js'
 import { PRIVATE_WEBHOOK_SECRET } from '$env/static/private';
-import {updateWalletSubscriptionId, removeWalletSubscriptionId} from '$lib/funcs/server/database/index.js'
+import {updateWalletSubscriptionId, removeWalletSubscriptionId} from '$lib/funcs/database.server.js'
 
 
 function toBuffer(ab: ArrayBuffer): Buffer {

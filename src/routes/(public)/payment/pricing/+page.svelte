@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {HelpCircle} from 'lucide-svelte'
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
-	import PricingTable from '$lib/comps/payment/PricingTable.svelte';
+	import PricingTable from './PricingTable.svelte';
 	import { superForm } from 'sveltekit-superforms/client'
     import { pricingSchema } from '$lib/utils/schema'
     import {toastError} from '$lib/utils/toastHelper.js'
