@@ -16,6 +16,7 @@ export const actions = {
 	changeName: async (event) => {
 		const session = await event.locals.getSession()
 		if (!session) {
+			console.log("Error: You are not logged in")
 			throw error(400, {
 				message: "You are not logged in!",
 			})

@@ -10,8 +10,10 @@ export function toastError(message:string="Something went wrong!", toastStore:an
 
     };
     toastStore.trigger(t);
-    if(isErr)
+    if(isErr){
+        console.log(message)
 		throw error(400, message);
+    }
 }
 
 

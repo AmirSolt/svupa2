@@ -23,6 +23,7 @@ export const actions = {
 
         const user_id = (await event.locals.getSession())?.user.id
         if(!user_id){
+            console.log("Error: Not logged in")
             throw error(400, "Something went wrong.")
         }
 
@@ -32,12 +33,13 @@ export const actions = {
             return fail(400, { form })
         }
 
-        const profile: Profile | null = await fetchProfile(session)
+        const profile = await fetchProfile(session)
         if(profile!=null && profile.wallet.customer_id!=null){
             const deleted = await stripe.customers.del(
                 profile.wallet.customer_id
               );
         }else{
+            console.log("Error: Customer Deletion Error: Stripe")
             throw error(400, {
 				message: "Customer Deletion Error: Stripe",
 			})
