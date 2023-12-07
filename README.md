@@ -91,7 +91,15 @@ A saas template for Sveltekit + Supabase + Stripe. It includes Auth, payment(sub
 (check Cancellations immdiate)
 (check Subscription products)
 6. https://dashboard.stripe.com/settings/checkout -> limit customers to 1 subscription
-
+7. for usage based subscriptions, create a usageRecord for every usage:
+```javascript
+const usageRecord = await stripe.subscriptionItems.createUsageRecord(
+  '{subscription_id}',
+  {
+    quantity: {quanity},
+  }
+);
+```
 
 ## 3. Analytics
 in app.html there are google and hotjar analytics tags. Remove or replace.
