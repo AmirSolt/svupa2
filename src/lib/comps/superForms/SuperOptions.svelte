@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Session } from '@supabase/supabase-js';
+	import type { AuthSession } from '@supabase/supabase-js';
 	import { toastError } from '$lib/utils/toastHelper.js';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	let toastStore = getToastStore();
 
 	export let options: string[] = [];
-	export let session: Session | null = null;
+	export let session: AuthSession | null = null;
 	export let formAttrName: string;
 	export let form: any;
 	export let constraints: any;

@@ -35,13 +35,6 @@ export interface Database {
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "profiles_wallet_fkey"
-            columns: ["wallet"]
-            isOneToOne: false
-            referencedRelation: "wallets"
-            referencedColumns: ["id"]
           }
         ]
       }
@@ -49,22 +42,30 @@ export interface Database {
         Row: {
           created_at: string
           customer_id: string | null
-          id: number
+          profile_id: string
           subscription_id: string | null
         }
         Insert: {
           created_at?: string
           customer_id?: string | null
-          id?: number
+          profile_id: string
           subscription_id?: string | null
         }
         Update: {
           created_at?: string
           customer_id?: string | null
-          id?: number
+          profile_id?: string
           subscription_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "wallets_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

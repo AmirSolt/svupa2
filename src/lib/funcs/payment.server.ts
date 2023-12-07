@@ -1,7 +1,7 @@
 
 import {PRIVATE_STRIPE_KEY} from '$env/static/private';
 import Stripe from 'stripe';
-import type { Session } from "@supabase/supabase-js";
+import type { AuthSession } from "@supabase/supabase-js";
 
 
 export const stripe = new Stripe(PRIVATE_STRIPE_KEY, {
@@ -31,7 +31,7 @@ export async function createStripeCustomer(email:string|undefined, full_name:str
         return undefined
     }
 	const customer = await stripe.customers.create({
-		name:full_name,
+		name:full_name??undefined,
 		email:email??undefined,
 	})
 	if(customer==null){

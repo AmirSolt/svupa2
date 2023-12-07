@@ -29,7 +29,7 @@ export const actions = {
 			return fail(400, { form })
 		}
 
-		const updateSuccess = await updateName(session, form.data.first_name??null, form.data.last_name??null)
+		const updateSuccess = await updateName(session, form.data.full_name??null)
 
         if(!updateSuccess){
             return fail(400, { form })

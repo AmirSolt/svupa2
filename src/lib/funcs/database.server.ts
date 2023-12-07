@@ -3,7 +3,7 @@
 import { error } from '@sveltejs/kit'
 import { PUBLIC_SUPABASE_URL } from '$env/static/public'
 import { PRIVATE_SERVICE_ROLE_KEY_SUPABASE } from '$env/static/private'
-import { createClient, type Session } from '@supabase/supabase-js'
+import { createClient, type AuthSession } from '@supabase/supabase-js'
 import type { Database } from '$lib/utils/database.types'
 
 
@@ -17,18 +17,19 @@ export const supabaseAdmin = createClient<Database>(
 )
 
 
-export async function fetchProfile(session:Session|null){
+export async function fetchProfile(session:AuthSession|null){
     if (session) {
-        const profileWithWallet = supabaseAdmin
+
+ 
+        const { data, error: err }  =  await supabaseAdmin
             .from('profiles')
             .select(`
                 full_name,
-                wallet(customer_id, subscription_id)
+                wallet:wallets(customer_id, subscription_id)
             `)
             .eq('id', session?.user.id)
-            .single()
-
-        const { data, error: err } = await profileWithWallet
+            .single()  
+            
         if (err != null) {
             throw error(400, {
                 message: err.message,
@@ -40,8 +41,8 @@ export async function fetchProfile(session:Session|null){
 }
 
 
-export async function updateWalletCustomerId(session:Session|null, customer_id:string|undefined|null):Promise<boolean>{
-    if(customer_id==null && session==null){
+export async function updateWalletCustomerId(session:AuthSession|null, customer_id:string|undefined|null):Promise<boolean>{
+    if(customer_id==null || session==null){
         return false
     }
 
@@ -63,7 +64,7 @@ export async function updateWalletCustomerId(session:Session|null, customer_id:s
 
 export async function updateWalletSubscriptionId(customer_id:string|undefined|null, subscription_id:string|undefined|null):Promise<boolean>{
 
-    if(customer_id==null && subscription_id==null){
+    if(customer_id==null || subscription_id==null){
         return false
     }
     const { data, error: err } = await supabaseAdmin
@@ -82,7 +83,7 @@ export async function updateWalletSubscriptionId(customer_id:string|undefined|nu
 }
 
 
-export async function getWalletSubscriptionId(customer_id:string|undefined|null):Promise<string|undefined>{
+export async function getWalletSubscriptionId(customer_id:string|undefined|null):Promise<string|null|undefined>{
     if(customer_id==null){
         return undefined
     }
@@ -98,8 +99,7 @@ export async function getWalletSubscriptionId(customer_id:string|undefined|null)
         // })
         return undefined
     }
-    const subscription_id:string|undefined=data["subscription_id"]
-    return subscription_id
+    return data["subscription_id"]
 }
 
 
@@ -122,11 +122,11 @@ export async function removeWalletSubscriptionId(customer_id:string|undefined|nu
 }
 
 
-export async function updateName(session:Session|null, first_name:string|null, last_name:string|null,):Promise<boolean>{
+export async function updateName(session:AuthSession|null, full_name:string|null):Promise<boolean>{
     if (session) {
         const { data, error: err } = await supabaseAdmin
             .from('profiles')
-            .update({first_name, last_name})
+            .update({full_name})
             .eq('id', session.user.id)
             .single()
         if (err != null) {

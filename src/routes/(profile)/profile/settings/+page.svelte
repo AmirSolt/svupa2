@@ -27,11 +27,9 @@
 
 	onMount(() => {
 		if(profile!=null){
-			$form.first_name = profile.first_name ?? undefined;
-			$form.last_name = profile.last_name ?? undefined;
+			$form.full_name = profile.full_name ?? undefined;
 			if ($tainted != null) {
-				$tainted.first_name = false;
-				$tainted.last_name = false;
+				$tainted.full_name = false;
 			}
 		}
 	});
@@ -48,7 +46,7 @@
 			Wallet
 		</h2>
 
-		{#if profile!=null && profile.wallet.subscription_id!=null}
+		{#if profile!=null && profile?.wallet?.subscription_id!=null}
 			<a href="/payment/portal" class="btn variant-filled-primary"><span>Manage Your Subscription</span> <ExternalLink size={20}/></a>
 		{:else}
 			<a href="/payment/pricing" class="btn variant-filled-primary"><span>Choose a Plan</span> <ArrowRight size={20}/></a>
@@ -64,31 +62,18 @@
 					<SuperTextInput
 						session={data.session}
 						isSessionOnly={true}
-						formAttrName="first_name"
+						formAttrName="full_name"
 						{form}
 						{constraints}
 						{errors}
 						placeholder="(optional)"
-						autocomplete="given-name"
+						autocomplete="name"
 					>
 						<div slot="head">
-							<p>First Name</p>
+							<p>Full Name</p>
 						</div>
 					</SuperTextInput>
-					<SuperTextInput
-						session={data.session}
-						isSessionOnly={true}
-						formAttrName="last_name"
-						{form}
-						{constraints}
-						{errors}
-						placeholder="(optional)"
-						autocomplete="family-name"
-					>
-						<div slot="head">
-							<p>Last Name</p>
-						</div>
-					</SuperTextInput>
+
 				<button type="submit" class="btn variant-ghost-secondary w-full"> Save </button>
 			</div>
 		</form>

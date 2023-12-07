@@ -45,6 +45,5 @@ export const pricingSchema = z.object({
 })
 
 export const nameSchema= z.object({
-	first_name: z.string().optional(),
-	last_name: z.string().optional(),
+	full_name: z.string().optional(),
 })

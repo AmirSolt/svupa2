@@ -3,7 +3,7 @@ import { error, fail, redirect } from '@sveltejs/kit'
 import { superValidate } from 'sveltekit-superforms/server'
 import {stripe} from '$lib/funcs/payment.server.js'
 import { fetchProfile } from '$lib/funcs/database.server.js'
-import type { Session } from "@supabase/supabase-js";
+import type { AuthSession } from "@supabase/supabase-js";
 
 
 export const load = async (event) => {
@@ -19,7 +19,7 @@ export const load = async (event) => {
 export const actions = {
 
     default: async (event) => {
-        const session: Session|null = await event.locals.getSession()
+        const session: AuthSession|null = await event.locals.getSession()
 
         const user_id = (await event.locals.getSession())?.user.id
         if(!user_id){
