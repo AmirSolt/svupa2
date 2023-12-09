@@ -18,11 +18,11 @@ A saas template for Sveltekit + Supabase + Stripe. It includes Auth, payment(sub
     id uuid not null,
     created_at timestamp with time zone not null default now(),
     full_name text null,
-    wallet bigint null,
     constraint profiles_pkey primary key (id),
-    constraint profiles_id_fkey foreign key (id) references auth.users (id) on update cascade on delete cascade,
-    constraint profiles_wallet_fkey foreign key (wallet) references wallets (id) on update cascade on delete cascade
+    constraint profiles_id_fkey foreign key (id) references auth.users (id) on update cascade on delete cascade
   ) tablespace pg_default;
+
+
 
     -- wallets table
     create table
